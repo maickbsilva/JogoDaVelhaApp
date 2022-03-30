@@ -6,4 +6,7 @@
     <string name="jogador2">Jogador 2 |O|</string>
     <string name="placar1">0</string>
     <string name="placar2">0</string>
+    <string name="vencedor">Parabéns, você venceu!!!!</string>
+    <string name="velha">Vixe, deu velha!!!!</string>
+
 </resources>

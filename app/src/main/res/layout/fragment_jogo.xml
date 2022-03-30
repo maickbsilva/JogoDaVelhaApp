@@ -13,11 +13,10 @@
         android:id="@+id/linear1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
+        android:background="@color/creme">
     <TextView
         android:id="@+id/jogador1"
         android:text="@string/jogador1"
-        android:background="@color/creme"
         android:layout_width="0dp"
         android:layout_height="25dp"
         android:layout_weight="8"
@@ -31,7 +30,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/placar1"
-        android:background="@color/creme"
         android:width="0dp"
         android:height="25dp"
         android:layout_weight="2"
@@ -56,12 +54,13 @@
         android:id="@+id/linear2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/view">
+        app:layout_constraintTop_toBottomOf="@id/view"
+        android:background="@color/creme"
+        >
 
         <TextView
             android:id="@+id/jogador2"
             android:text="@string/jogador2"
-            android:background="@color/creme"
             android:layout_width="0dp"
             android:layout_height="25dp"
             android:layout_weight="8"
@@ -75,7 +74,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/placar2"
-            android:background="@color/creme"
             android:width="0dp"
             android:height="25dp"
             android:layout_weight="2"
@@ -100,21 +98,24 @@
                 android:layout_width="0dp"
                 android:layout_height="150dp"
                 android:layout_weight="1"
-                android:layout_margin="5dp"/>
+                android:layout_margin="5dp"
+                android:textSize="50sp"/>
 
             <Button
                 android:id="@+id/bt01"
                 android:layout_width="0dp"
                 android:layout_height="150dp"
                 android:layout_weight="1"
-                android:layout_margin="5dp"/>
+                android:layout_margin="5dp"
+                android:textSize="50sp"/>
 
             <Button
                 android:id="@+id/bt02"
                 android:layout_width="0dp"
                 android:layout_height="150dp"
                 android:layout_weight="1"
-                android:layout_margin="5dp"/>
+                android:layout_margin="5dp"
+                android:textSize="50sp"/>
 
         </TableRow>
 
@@ -127,21 +128,24 @@
                 android:layout_width="0dp"
                 android:layout_height="150dp"
                 android:layout_weight="1"
-                android:layout_margin="5dp"/>
+                android:layout_margin="5dp"
+                android:textSize="50sp"/>
 
             <Button
                 android:id="@+id/bt11"
                 android:layout_width="0dp"
                 android:layout_height="150dp"
                 android:layout_weight="1"
-                android:layout_margin="5dp"/>
+                android:layout_margin="5dp"
+                android:textSize="50sp"/>
 
             <Button
                 android:id="@+id/bt12"
                 android:layout_width="0dp"
                 android:layout_height="150dp"
                 android:layout_weight="1"
-                android:layout_margin="5dp"/>
+                android:layout_margin="5dp"
+                android:textSize="50sp"/>
 
         </TableRow>
 
@@ -154,21 +158,24 @@
                 android:layout_width="0dp"
                 android:layout_height="150dp"
                 android:layout_weight="1"
-                android:layout_margin="5dp"/>
+                android:layout_margin="5dp"
+                android:textSize="50sp"/>
 
             <Button
                 android:id="@+id/bt21"
                 android:layout_width="0dp"
                 android:layout_height="150dp"
                 android:layout_weight="1"
-                android:layout_margin="5dp"/>
+                android:layout_margin="5dp"
+                android:textSize="50sp"/>
 
             <Button
                 android:id="@+id/bt22"
                 android:layout_width="0dp"
                 android:layout_height="150dp"
                 android:layout_weight="1"
-                android:layout_margin="5dp"/>
+                android:layout_margin="5dp"
+                android:textSize="50sp"/>
 
         </TableRow>
 

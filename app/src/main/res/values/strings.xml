@@ -1,12 +1,19 @@
 <resources>
     <string name="app_name">TicTac Toe App</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="jogador1">Jogador 1 |X|</string>
-    <string name="jogador2">Jogador 2 |O|</string>
+    <string name="hello_inicial">Welcome to TicTacToe</string>
+    <string name="button_inicial">Lets Play</string>
+    <string name="jogador1">Jogador 1 |%1$S|</string>
+    <string name="jogador2">Jogador 2 |%1$S|</string>
     <string name="placar1">0</string>
     <string name="placar2">0</string>
     <string name="vencedor">Parabéns, você venceu!!!!</string>
     <string name="velha">Vixe, deu velha!!!!</string>
-
+    <string name="resetar">Resetar o placar</string>
+    <string name="inicio">Voltar a tela inicial</string>
+    <string name="preferencias">Preferências</string>
+    <string name="simbolo_jog1">Simbolo do Jogador 1</string>
+    <string name="simbolo_jog2">Simbolo do Jogador 2</string>
+    <string name="summary_jog1">Escolha o simbolo do Jogador 1</string>
+    <string name="summary_jog2">Escolha o simbolo do Jogador 2</string>
 </resources>

@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/jogoFragment"
         android:name="br.senai.sp.cotia.tictactoeapp.fragment.JogoFragment"
-        android:label="fragment_jogo"
+        android:label="JogoDaVelha"
         tools:layout="@layout/fragment_jogo" >
         <action
             android:id="@+id/action_jogoFragment_to_inicioFragment"

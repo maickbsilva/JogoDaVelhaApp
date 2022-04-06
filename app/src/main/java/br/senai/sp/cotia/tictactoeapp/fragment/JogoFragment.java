@@ -3,10 +3,15 @@ package br.senai.sp.cotia.tictactoeapp.fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -16,6 +21,7 @@ import java.util.Random;
 
 import br.senai.sp.cotia.tictactoeapp.R;
 import br.senai.sp.cotia.tictactoeapp.databinding.FragmentJogoBinding;
+import br.senai.sp.cotia.tictactoeapp.util.PrefsUtil;
 
 
 public class JogoFragment extends Fragment {
@@ -38,10 +44,17 @@ public class JogoFragment extends Fragment {
         //variavel para controlar o numero de jogadas
         private int numJogadas =0;
 
+        //variaveis para o placar
+        private int placarJog1 = 0, placarJog2 = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        //habiltar o menu
+        setHasOptionsMenu(true);
+
+        //instanciar o biding
         binding = FragmentJogoBinding.inflate(inflater, container, false);
 
         //instanciando o botao
@@ -74,8 +87,12 @@ public class JogoFragment extends Fragment {
         }
 
         //define os simbolos do jogador 1 e jogador 2
-        simbolo1 = "X";
-        simbolo2 = "O";
+        simbolo1 = PrefsUtil.getSimboloJog1(getContext());
+        simbolo2 = PrefsUtil.getSimboloJog2(getContext());
+
+        //atualizando o placar com os simbolos
+        binding.jogador1.setText(getResources().getString(R.string.jogador1, simbolo1));
+        binding.jogador2.setText(getResources().getString(R.string.jogador2, simbolo2));
 
         //instanciar o random
         random = new Random();
@@ -102,6 +119,11 @@ public class JogoFragment extends Fragment {
         }
 
 
+    }
+
+    private void atualizaPlacar(){
+        binding.placar1.setText(placarJog1+"");
+        binding.placar2.setText(placarJog2+"");
     }
 
     private void atualizaVez(){
@@ -161,6 +183,31 @@ public class JogoFragment extends Fragment {
 
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        //verificar qual item do menu foi selecionado
+        switch (item.getItemId()){
+            //caso seja a opção de resetar
+            case R.id.menu_resetar:
+                placarJog1 = 0;
+                placarJog2 = 0;
+                atualizaPlacar();
+                reset();
+                break;
+            //caso seja a opcao de preferencias
+            case R.id.menu_pref:
+                NavHostFragment.findNavController(JogoFragment.this).navigate(R.id.action_jogoFragment_to_prefFragment);
+                break;
+
+        }
+
+        return true;
+    }
 
     //listener para os botoes
     private View.OnClickListener listenerBotoes = btPress -> {
@@ -201,6 +248,15 @@ public class JogoFragment extends Fragment {
         if (numJogadas >= 5 && venceu()){
             //informa que houve um vencedor
             Toast.makeText(getContext(), R.string.vencedor, Toast.LENGTH_LONG).show();
+
+            if (simbolo.equals(simbolo1)){
+                placarJog1++;
+            }else{
+                placarJog2++;
+            }
+            //atualiza o placar
+            atualizaPlacar();
+            //reseta
             reset();
 
         }else if(numJogadas == 9 && venceu() == false){

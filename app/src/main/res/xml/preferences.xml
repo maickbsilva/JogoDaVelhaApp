@@ -15,6 +15,20 @@
         android:summary="@string/summary_jog2"
         />
 
+    <androidx.preference.EditTextPreference
+        android:icon="@android:drawable/btn_star"
+        android:key="nome_jog_1"
+        android:title="@string/nomejog1"
+        android:summary="@string/summary_nome1"
+        />
+
+    <androidx.preference.EditTextPreference
+        android:icon="@android:drawable/btn_star"
+        android:key="nome_jog_2"
+        android:title="@string/nomejog2"
+        android:summary="@string/summary_nome2"
+        />
+
 
 
 

@@ -1,9 +1,13 @@
 package br.senai.sp.cotia.tictactoeapp.fragment;
 
+import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -36,7 +40,7 @@ public class JogoFragment extends Fragment {
         private String[][] tabuleiro;
 
         //variaveis para os simbolos
-        private String simbolo1, simbolo2, simbolo;
+        private String simbolo1, simbolo2, simbolo, nomeJog1, nomeJog2;
 
         //variavel random para ver quem inicia
         private Random random;
@@ -45,14 +49,36 @@ public class JogoFragment extends Fragment {
         private int numJogadas =0;
 
         //variaveis para o placar
-        private int placarJog1 = 0, placarJog2 = 0;
+        private int placarJog1 = 0, placarJog2 = 0, placarV = 0;
 
+        public AlertDialog dialog;
+
+    @SuppressLint({"StringFormatInvalid", "StringFormatMatches"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         //habiltar o menu
         setHasOptionsMenu(true);
+
+        //mensagem de confirmação de RESET
+        AlertDialog.Builder confirmaExclusao = new AlertDialog.Builder(getContext());
+        confirmaExclusao.setTitle("Atenção!!");
+        confirmaExclusao.setMessage("Tem certeza que deseja RESERTAR o jogo?");
+        confirmaExclusao.setCancelable(false);
+        confirmaExclusao.setNegativeButton("Não", null);
+        confirmaExclusao.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                placarJog1 = 0;
+                placarJog2 = 0;
+                placarV = 0;
+                atualizaPlacar();
+                reset();
+            }
+        });
+        dialog = confirmaExclusao.create();
+
 
         //instanciar o biding
         binding = FragmentJogoBinding.inflate(inflater, container, false);
@@ -90,9 +116,14 @@ public class JogoFragment extends Fragment {
         simbolo1 = PrefsUtil.getSimboloJog1(getContext());
         simbolo2 = PrefsUtil.getSimboloJog2(getContext());
 
+        //define os nomes dos jogadores
+        nomeJog1 = PrefsUtil.getNomeJog1(getContext());
+        nomeJog2 = PrefsUtil.getNomeJog2(getContext());
+
+
         //atualizando o placar com os simbolos
-        binding.jogador1.setText(getResources().getString(R.string.jogador1, simbolo1));
-        binding.jogador2.setText(getResources().getString(R.string.jogador2, simbolo2));
+        binding.jogador1.setText(getResources().getString(R.string.jogador1, nomeJog1, simbolo1));
+        binding.jogador2.setText(getResources().getString(R.string.jogador2, nomeJog2, simbolo2));
 
         //instanciar o random
         random = new Random();
@@ -106,6 +137,17 @@ public class JogoFragment extends Fragment {
         //retorna a view root do binding
         return  binding.getRoot();
 
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        //pegar a referencia para a activite
+        AppCompatActivity minhaActivite = (AppCompatActivity) getActivity();
+        //oculta a action bar
+        minhaActivite.getSupportActionBar().show();
+        //desbloqueia a seta de retornar
+        minhaActivite.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
 
     private void sorteia(){
@@ -124,6 +166,8 @@ public class JogoFragment extends Fragment {
     private void atualizaPlacar(){
         binding.placar1.setText(placarJog1+"");
         binding.placar2.setText(placarJog2+"");
+        binding.placarV.setText(placarV+"");
+
     }
 
     private void atualizaVez(){
@@ -166,7 +210,8 @@ public class JogoFragment extends Fragment {
     }
 
     private void reset(){
-        for (Button bt : botoes){
+
+         for (Button bt : botoes){
             bt.setText("");
             bt.setBackgroundColor(getResources().getColor(R.color.azul));
             bt.setClickable(true);
@@ -180,7 +225,6 @@ public class JogoFragment extends Fragment {
         numJogadas=0;
         sorteia();
         atualizaVez();
-
     }
 
     @Override
@@ -194,15 +238,16 @@ public class JogoFragment extends Fragment {
         switch (item.getItemId()){
             //caso seja a opção de resetar
             case R.id.menu_resetar:
-                placarJog1 = 0;
-                placarJog2 = 0;
-                atualizaPlacar();
-                reset();
+                dialog.show();
                 break;
             //caso seja a opcao de preferencias
             case R.id.menu_pref:
                 NavHostFragment.findNavController(JogoFragment.this).navigate(R.id.action_jogoFragment_to_prefFragment);
                 break;
+
+            case R.id.menu_inicio:
+                NavHostFragment.findNavController(JogoFragment.this).navigate(R.id.action_jogoFragment_to_inicioFragment);
+
 
         }
 
@@ -259,8 +304,10 @@ public class JogoFragment extends Fragment {
             //reseta
             reset();
 
-        }else if(numJogadas == 9 && venceu() == false){
+        }else if(numJogadas == 9){
             Toast.makeText(getContext(), R.string.velha, Toast.LENGTH_LONG).show();
+            placarV++;
+            atualizaPlacar();
             reset();
 
         }else{

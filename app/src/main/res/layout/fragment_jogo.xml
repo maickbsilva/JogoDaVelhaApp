@@ -73,7 +73,51 @@
             android:id="@+id/placar2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:width="0dp"
+            android:height="25dp"
             android:text="@string/placar2"
+            android:textAlignment="center"
+            android:textColor="@color/azul"
+            android:textStyle="bold"
+
+            />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/azul"
+        app:layout_constraintTop_toBottomOf="@id/linear2"
+        >
+
+    </View>
+
+    <LinearLayout
+        android:id="@+id/linear3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/view2"
+        android:background="@color/creme"
+        >
+
+        <TextView
+            android:id="@+id/jogVelha"
+            android:text="@string/jogVelha"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:layout_weight="8"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="@color/azul"
+            />
+
+        <TextView
+            android:id="@+id/placarV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/placarV"
             android:width="0dp"
             android:height="25dp"
             android:layout_weight="2"
@@ -87,7 +131,7 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/linear2">
+        app:layout_constraintTop_toBottomOf="@id/linear3">
 
         <TableRow
             android:layout_width="match_parent"
